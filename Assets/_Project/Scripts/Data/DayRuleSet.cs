@@ -3,6 +3,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DayRuleSet", menuName = "Scriptable Objects/DayRuleSet")]
 public class DayRuleSet : ScriptableObject
 {
-    public GuestProfile[] guestForTheDay;
-    public int TotalGuestsForDay => guestForTheDay.Length;
+    public int dayNumber;
+    public GuestProfile[] guestQueue;
+    public int TotalGuestsForDay => guestQueue.Length;
+
+    [Header("Rules")] public int minAge;
+    public int maxAge;
+    public int maxMistakesAllowed;
 }

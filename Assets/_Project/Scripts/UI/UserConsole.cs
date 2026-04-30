@@ -1,9 +1,14 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class UserConsole : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI dayText;
+    
+    [Space]
     [SerializeField] private Button acceptButton;
     [SerializeField] private Button rejectButton;
     [SerializeField] private Button nextGuestButton;
@@ -19,6 +24,19 @@ public class UserConsole : MonoBehaviour
     [Space]
     [SerializeField] private Sprite validTicketSprite;
     [SerializeField] private Sprite[] invalidTicketsSprites;
+
+    private void Start()
+    {
+        acceptButton.onClick.AddListener(() => GameManager.Instance.ProcessDecision(true));
+        rejectButton.onClick.AddListener(() => GameManager.Instance.ProcessDecision(false));
+    }
+
+    public void DisplayGuest(GuestProfile guest)
+    {
+        UpdatePersonalInfo(guest);
+        UpdateScanResults(guest);
+        UpdateTicketInfo(guest);
+    }
 
 
     public void EnableConsoleButtons(bool isAttending)
@@ -37,7 +55,7 @@ public class UserConsole : MonoBehaviour
         }
     }
 
-    public void UpdatePersonalInfo(GuestProfile guestProfile)
+    void UpdatePersonalInfo(GuestProfile guestProfile)
     {
         var personalInfo = guestProfile.personalInfo;
         var text =
@@ -46,7 +64,7 @@ public class UserConsole : MonoBehaviour
         portraitImage.sprite = personalInfo.portrait;
     }
 
-    public void UpdateScanResults(GuestProfile guestProfile)
+    void UpdateScanResults(GuestProfile guestProfile)
     {
         var scanResult = guestProfile.scanResult;
         var results = "";
@@ -56,8 +74,7 @@ public class UserConsole : MonoBehaviour
 
         scanResultsText.text = results;
     }
-
-    public void UpdateTicketInfo(GuestProfile guestProfile)
+    void UpdateTicketInfo(GuestProfile guestProfile)
     {
         if (guestProfile.hasValidTicket)
         {
@@ -68,5 +85,10 @@ public class UserConsole : MonoBehaviour
             var index = Random.Range(0, invalidTicketsSprites.Length);
             ticketImage.sprite = invalidTicketsSprites[index];
         }
+    }
+
+    public void UpdateDayText(int day)
+    {
+        dayText.text = day.ToString();
     }
 }

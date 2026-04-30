@@ -364,6 +364,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320099746}
   m_CullTransparentMesh: 1
+--- !u!1 &385961335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 385961336}
+  - component: {fileID: 385961337}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &385961336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385961335}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &385961337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385961335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967d70a3313a53746bf4270981d4e86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  userConsole: {fileID: 1641353840}
+  days:
+  - {fileID: 11400000, guid: 9f18ab3c74cfa68429e936a93197d410, type: 2}
+  currentDayIndex: 0
+  mistakes: 0
+  score: 0
+  funKillersCaught: 0
+  funKillersMissed: 0
 --- !u!1 &435619332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2944,6 +2996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3c7e965349b06646a4fec222aa9665a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UserConsole
+  dayText: {fileID: 0}
   acceptButton: {fileID: 780683430}
   rejectButton: {fileID: 1295961751}
   nextGuestButton: {fileID: 1618840131}
@@ -3861,3 +3914,4 @@ SceneRoots:
   - {fileID: 1641353839}
   - {fileID: 1403647873}
   - {fileID: 245146827}
+  - {fileID: 385961336}
