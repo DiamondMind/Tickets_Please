@@ -13,12 +13,14 @@ public class GuestProfile : ScriptableObject
 [System.Serializable]
 public struct PersonalInfo{
     public string name;
+    public int age;
     public Sprite portrait;
     public string reasonForVisit;
     
-    public PersonalInfo(string name, Sprite portrait, string reasonForVisit){
+    public PersonalInfo(string name, Sprite portrait, int age, string reasonForVisit){
         this.name = name;
         this.portrait = portrait;
+        this.age = age;
         this.reasonForVisit = reasonForVisit;
     }
 }

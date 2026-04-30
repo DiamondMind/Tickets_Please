@@ -821,7 +821,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 6.091361
+  orthographic size: 5.007739
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1575,6 +1575,7 @@ GameObject:
   - component: {fileID: 1107306853}
   - component: {fileID: 1107306852}
   - component: {fileID: 1107306854}
+  - component: {fileID: 1107306855}
   m_Layer: 5
   m_Name: MainPanel
   m_TagString: Untagged
@@ -1668,6 +1669,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &1107306855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107306850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: 10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1173043049
 GameObject:
   m_ObjectHideFlags: 0
@@ -2824,6 +2840,7 @@ GameObject:
   - component: {fileID: 1641353838}
   - component: {fileID: 1641353837}
   - component: {fileID: 1641353836}
+  - component: {fileID: 1641353840}
   m_Layer: 5
   m_Name: GameplayHUD
   m_TagString: Untagged
@@ -2915,6 +2932,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1641353840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641353835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3c7e965349b06646a4fec222aa9665a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UserConsole
+  acceptButton: {fileID: 780683430}
+  rejectButton: {fileID: 1295961751}
+  nextGuestButton: {fileID: 1618840131}
+  portraitImage: {fileID: 1226588268}
+  ticketImage: {fileID: 435619334}
+  personalInfoText: {fileID: 1844739478}
+  scanResultsText: {fileID: 1253453166}
+  validTicketSprite: {fileID: -7881414284890356871, guid: c73b179e1ecb5df4db2854f0e507b4d1, type: 3}
+  invalidTicketsSprites:
+  - {fileID: 4139776365111417527, guid: 07fd3ee0420aa38469fdb246709a3868, type: 3}
+  - {fileID: -5720543068960466618, guid: 7c486f90403cf5d4784f8d53af6acf47, type: 3}
+  - {fileID: 3111194826984921792, guid: 772afc135dba2874aba430b86a067008, type: 3}
+  - {fileID: 995480978497335412, guid: a104df7714be4764492f7a4d92ad6bfc, type: 3}
 --- !u!1 &1690327945
 GameObject:
   m_ObjectHideFlags: 0
@@ -3096,7 +3138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
   m_EffectColor: {r: 0.10588236, g: 0.078431375, b: 0.078431375, a: 1}
-  m_EffectDistance: {x: 10, y: -10}
+  m_EffectDistance: {x: 15, y: -15}
   m_UseGraphicAlpha: 1
 --- !u!1 &1694781115
 GameObject:
@@ -3133,7 +3175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -104, y: -36.05}
+  m_AnchoredPosition: {x: -104, y: -36.05005}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1694781117
