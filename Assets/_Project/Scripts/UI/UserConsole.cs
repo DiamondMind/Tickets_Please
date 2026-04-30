@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class UserConsole : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI dayText;
+    [SerializeField] private TextMeshProUGUI statsText; //day, count of proccesed tickets
     
     [Space]
     [SerializeField] private Button acceptButton;
@@ -29,6 +29,8 @@ public class UserConsole : MonoBehaviour
     {
         acceptButton.onClick.AddListener(() => GameManager.Instance.ProcessDecision(true));
         rejectButton.onClick.AddListener(() => GameManager.Instance.ProcessDecision(false));
+
+        nextGuestButton.onClick.AddListener(GameManager.Instance.OnNextGuestPressed);
     }
 
     public void DisplayGuest(GuestProfile guest)
@@ -59,7 +61,7 @@ public class UserConsole : MonoBehaviour
     {
         var personalInfo = guestProfile.personalInfo;
         var text =
-            $"name: {personalInfo.name} \n age: {personalInfo.age} \n reason for coming: {personalInfo.reasonForVisit}";
+            $"name: {personalInfo.name} \n \nage: {personalInfo.age} \n \nreason for coming: {personalInfo.reasonForVisit}";
         personalInfoText.text = text;
         portraitImage.sprite = personalInfo.portrait;
     }
@@ -68,8 +70,8 @@ public class UserConsole : MonoBehaviour
     {
         var scanResult = guestProfile.scanResult;
         var results = "";
-        results += $"Sick: {(scanResult.sick ? "Yes" : "No")}\n";
-        results += $"Low Cortisol: {(scanResult.lowCortisol ? "Yes" : "No")}\n";
+        results += $"Sick: {(scanResult.sick ? "Yes" : "No")}\n \n";
+        results += $"Low Cortisol: {(scanResult.lowCortisol ? "Yes" : "No")}\n \n";
         results += $"High Dopamine: {(scanResult.highDopamine ? "Yes" : "No")}";
 
         scanResultsText.text = results;
@@ -87,8 +89,17 @@ public class UserConsole : MonoBehaviour
         }
     }
 
-    public void UpdateDayText(int day)
+    public void UpdateStatsText(int day, int currentGuestIndex)
     {
-        dayText.text = day.ToString();
+        //show text as 
+        //day 1
+        //2/5 guests
+    }
+
+    public void ClearConsole()
+    {
+        scanResultsText.text = "";
+        personalInfoText.text = "";
+        portraitImage.sprite = null;
     }
 }

@@ -10,4 +10,5 @@ public class DayRuleSet : ScriptableObject
     [Header("Rules")] public int minAge;
     public int maxAge;
     public int maxMistakesAllowed;
+    public string dailyBriefing;
 }

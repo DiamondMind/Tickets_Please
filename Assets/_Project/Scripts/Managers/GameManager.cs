@@ -6,10 +6,19 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] private UserConsole userConsole;
+    [SerializeField] private EndDayScreen endDayScreen;
+    [SerializeField] private BriefingScreen briefingScreen;
 
     [Header("Days")] [SerializeField] private DayRuleSet[] days; //add for day1, day 2, day 3 in the editor
     public int currentDayIndex = 0;
 
+    [Space]
+    // cumulative across all days
+    public int totalScore = 0;
+
+    public int totalFunKillersCaught = 0;
+
+    //per day
     public int mistakes = 0;
     public int score = 0;
     public int funKillersCaught = 0;
@@ -21,6 +30,17 @@ public class GameManager : MonoBehaviour
 
 
     public DayRuleSet CurrentDay => days[currentDayIndex];
+    public bool IsLastDay => currentDayIndex >= days.Length - 1;
+
+    public enum GameState
+    {
+        Breifing,
+        Playing,
+        EndDay,
+        ProceedingToNextDay
+    }
+
+    public GameState currentState;
 
     void Awake()
     {
@@ -30,11 +50,26 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartDay();
+        ShowBriefing();
     }
+
+    /// <summary>
+    /// briefing logic
+    /// </summary>
+    private void ShowBriefing()
+    {
+        userConsole.gameObject.SetActive(false);
+        endDayScreen.Hide();
+        briefingScreen.UpdateBriefingText(CurrentDay.dailyBriefing);
+        briefingScreen.Show();
+        userConsole.UpdateStatsText(CurrentDay.dayNumber, 0);
+    }
+
 
     public void ProcessDecision(bool playerApproved)
     {
+        userConsole.EnableConsoleButtons(false);
+
         GuestProfile guest = CurrentDay.guestQueue[currentIndex - 1];
         bool guestShouldEnter = IsGuestAllowed(guest);
         bool correct = playerApproved == guestShouldEnter;
@@ -50,7 +85,7 @@ public class GameManager : MonoBehaviour
             if (playerApproved && guest.isFunKiller) funKillersMissed++;
         }
 
-        ShowNextGuest();
+        // ShowNextGuest();
     }
 
     private bool IsGuestAllowed(GuestProfile guest)
@@ -64,6 +99,11 @@ public class GameManager : MonoBehaviour
 
     public void StartDay()
     {
+        mistakes = 0;
+        score = 0;
+        funKillersCaught = 0;
+        funKillersMissed = 0;
+
         queue = CurrentDay.guestQueue;
         currentIndex = 0;
         ShowNextGuest();
@@ -79,21 +119,57 @@ public class GameManager : MonoBehaviour
         }
 
         userConsole.DisplayGuest(queue[currentIndex]);
+        userConsole.EnableConsoleButtons(true);
         currentIndex++;
     }
 
     private void EndDay()
     {
-    }
+        totalScore += score;
+        totalFunKillersCaught += funKillersCaught;
 
-    public void AdvanceDay()
-    {
-        currentDayIndex++;
-        mistakes = 0;
-        //update UI to reflect days
+        userConsole.gameObject.SetActive(false);
+        endDayScreen.UpdateResultsUI(score, mistakes, funKillersCaught);
+        endDayScreen.Show(IsLastDay);
     }
 
     public bool DayFailed() =>
         mistakes >= CurrentDay
             .maxMistakesAllowed; //if the plyaer has more mistakes, they have filed the day... but they will proceed to the next day
+
+
+    //all the button events for each screen
+    public void OnRetryPressed()
+    {
+        endDayScreen.Hide();
+        userConsole.gameObject.SetActive(true);
+        StartDay();
+    }
+
+    public void OnProceedPressed()
+    {
+        if (IsLastDay)
+        {
+            // pass total score to next scene
+            PlayerPrefs.SetInt("TotalScore", totalScore);
+            PlayerPrefs.SetInt("FunKillersCaught", totalFunKillersCaught);
+            LevelLoader.LoadLevel(3);
+            return;
+        }
+
+        currentDayIndex++;
+        ShowBriefing();
+    }
+
+    public void OnStartDayPressed()
+    {
+        briefingScreen.Hide();
+        userConsole.gameObject.SetActive(true);
+        StartDay();
+    }
+
+    public void OnNextGuestPressed()
+    {
+        ShowNextGuest();
+    }
 }

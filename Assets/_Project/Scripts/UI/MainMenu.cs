@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
     
     void Start()
     {
-        playBtn.onClick.AddListener(() => { UnityEngine.SceneManagement.SceneManager.LoadScene(1); });
+        playBtn.onClick.AddListener(() => { UnityEngine.SceneManagement.SceneManager.LoadScene(2); });
         exitBtn.onClick.AddListener(Application.Quit);
         
         UpdateSettingsVisuals();
