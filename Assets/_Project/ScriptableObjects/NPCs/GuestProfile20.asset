@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile20
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
+    name: Principal Harris
     age: 55
     portrait: {fileID: -3778333505869009090, guid: 2864df22cde94fa4b86196fbb9ff0040, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: School field trip supervision
   scanResult:
     sick: 1
-    lowCortisol: 1
+    lowCortisol: 0
     highDopamine: 0
   isFunKiller: 1
   hasValidTicket: 0

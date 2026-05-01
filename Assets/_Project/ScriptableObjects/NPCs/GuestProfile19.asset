@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile19
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Zoe
+    age: 20
     portrait: {fileID: -3593991872155376290, guid: 9977955cce14aa441b4fedfb4af8eecb, type: 3}
     reasonForVisit: To destroy haha haha
   scanResult:
     sick: 1
-    lowCortisol: 1
+    lowCortisol: 0
     highDopamine: 0
   isFunKiller: 1
   hasValidTicket: 0

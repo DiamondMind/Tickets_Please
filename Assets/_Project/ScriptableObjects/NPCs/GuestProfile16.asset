@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile16
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Amanda White
+    age: 24
     portrait: {fileID: -3498950037377471100, guid: 72f9c8c06601a4a43aa027bb33fe99d5, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Bachelorette party
   scanResult:
-    sick: 1
+    sick: 0
     lowCortisol: 1
-    highDopamine: 0
-  isFunKiller: 1
-  hasValidTicket: 0
+    highDopamine: 1
+  isFunKiller: 0
+  hasValidTicket: 1

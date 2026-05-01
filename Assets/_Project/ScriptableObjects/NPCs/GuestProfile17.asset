@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile17
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Rachel
+    age: 26
     portrait: {fileID: 2876219381275409499, guid: 4d569f535cbd9c84b8bf5dc715a8ba77, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Vlogger documenting the park
   scanResult:
     sick: 1
-    lowCortisol: 1
+    lowCortisol: 0
     highDopamine: 0
   isFunKiller: 1
-  hasValidTicket: 0
+  hasValidTicket: 1

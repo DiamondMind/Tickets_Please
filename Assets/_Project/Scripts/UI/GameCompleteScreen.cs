@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameCompleteScreen : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI totalScoreText;
     [SerializeField] private TextMeshProUGUI funKillersText;
     [SerializeField] private TextMeshProUGUI rankText;
@@ -12,9 +13,11 @@ public class GameCompleteScreen : MonoBehaviour
 
     private void Start()
     {
+        string playerName = PlayerPrefs.GetString("PlayerName", "");
         int totalScore = PlayerPrefs.GetInt("TotalScore", 0);
         int funKillersCaught = PlayerPrefs.GetInt("FunKillersCaught", 0);
 
+        nameText.text = $"Thanks for playing, {playerName}!";
         totalScoreText.text = $"Total Score\n{totalScore}";
         funKillersText.text = $"Fun Killers Stopped\n{funKillersCaught}";
         rankText.text = GetRank(totalScore);

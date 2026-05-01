@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile6
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Jeff Chen
+    age: 26
     portrait: {fileID: 8700726317755999697, guid: b1761dc5f9c06924587ae2617458b465, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Wants to ride the new VR coaster
   scanResult:
     sick: 1
     lowCortisol: 1
     highDopamine: 0
-  isFunKiller: 1
-  hasValidTicket: 0
+  isFunKiller: 0
+  hasValidTicket: 1

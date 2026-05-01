@@ -32,15 +32,13 @@ public class GameManager : MonoBehaviour
     public DayRuleSet CurrentDay => days[currentDayIndex];
     public bool IsLastDay => currentDayIndex >= days.Length - 1;
 
-    public enum GameState
-    {
-        Breifing,
-        Playing,
-        EndDay,
-        ProceedingToNextDay
-    }
+    [Header("Sound Effects")] [SerializeField]
+    private AudioClip dayStartSFX;
 
-    public GameState currentState;
+    [SerializeField] private AudioClip dayEndSFX;
+    [SerializeField] private AudioClip nextGuestSFX;
+    [Space] [SerializeField] private AudioClip correctDecisionSFX;
+    [SerializeField] private AudioClip wrongDecisionSFX;
 
     void Awake()
     {
@@ -53,16 +51,15 @@ public class GameManager : MonoBehaviour
         ShowBriefing();
     }
 
-    /// <summary>
-    /// briefing logic
-    /// </summary>
+
+    // briefing logic
     private void ShowBriefing()
     {
         userConsole.Hide();
         endDayScreen.Hide();
         briefingScreen.UpdateBriefingText(CurrentDay.dailyBriefing);
         briefingScreen.Show();
-        userConsole.UpdateStatsText(CurrentDay.dayNumber, 0);
+        userConsole.UpdateStatsText(CurrentDay.dayNumber, currentIndex, CurrentDay.guestQueue.Length);
     }
 
 
@@ -79,31 +76,35 @@ public class GameManager : MonoBehaviour
             score += 100;
             if (!playerApproved && guest.isFunKiller) funKillersCaught++;
             FeedbackManager.Instance?.PlayCorrect(playerApproved);
+            AudioManager.Instance?.PlaySFX(correctDecisionSFX);
         }
         else
         {
             mistakes++;
             if (playerApproved && guest.isFunKiller) funKillersMissed++;
             FeedbackManager.Instance?.PlayWrong(playerApproved);
+            AudioManager.Instance?.PlaySFX(wrongDecisionSFX);
         }
 
-        // ShowNextGuest();
         userConsole.ClearConsole(); // Clear the console immediately after processing the decision
     }
 
     private bool IsGuestAllowed(GuestProfile guest)
     {
         if (!guest.hasValidTicket) return false;
+        if (guest.scanResult.sick) return false;
         if (guest.personalInfo.age < CurrentDay.minAge) return false;
         if (guest.personalInfo.age > CurrentDay.maxAge) return false;
+        if (!guest.scanResult.highDopamine) return false;
         if (guest.isFunKiller) return false;
         return true;
     }
 
     private bool isDayOver = false;
 
-    public void StartDay()
+    private void StartDay()
     {
+        AudioManager.Instance?.PlaySFX(dayStartSFX);
         isDayOver = false;
         mistakes = 0;
         score = 0;
@@ -127,12 +128,14 @@ public class GameManager : MonoBehaviour
         }
 
         userConsole.DisplayGuest(queue[currentIndex]);
+        AudioManager.Instance?.PlaySFX(nextGuestSFX);
         userConsole.EnableConsoleButtons(true);
         currentIndex++;
     }
 
     private void EndDay()
     {
+        AudioManager.Instance?.PlaySFX(dayEndSFX);
         totalScore += score;
         totalFunKillersCaught += funKillersCaught;
 
@@ -162,7 +165,7 @@ public class GameManager : MonoBehaviour
             // pass total score to next scene
             PlayerPrefs.SetInt("TotalScore", totalScore);
             PlayerPrefs.SetInt("FunKillersCaught", totalFunKillersCaught);
-            LevelLoader.LoadLevel(3);
+            LevelLoader.LoadLevel(4);
             return;
         }
 

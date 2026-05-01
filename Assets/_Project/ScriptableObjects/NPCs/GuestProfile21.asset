@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile21
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: 'Jake '
+    age: 19
     portrait: {fileID: -2889886692739692803, guid: 0b6353535be31ed48b0e1f53ef9b8c0b, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Make-a-Wish foundation
   scanResult:
     sick: 1
-    lowCortisol: 1
+    lowCortisol: 0
     highDopamine: 0
-  isFunKiller: 1
-  hasValidTicket: 0
+  isFunKiller: 0
+  hasValidTicket: 1

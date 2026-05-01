@@ -1,4 +1,6 @@
 using System;
+using DG.Tweening;
+using KBCore.Refs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,28 +9,43 @@ using Random = UnityEngine.Random;
 public class UserConsole : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI statsText; //day, count of proccesed tickets
-    
-    [Space]
-    [SerializeField] private Button acceptButton;
+
+    [Space] [SerializeField] private Button acceptButton;
     [SerializeField] private Button rejectButton;
     [SerializeField] private Button nextGuestButton;
 
-    [Space]
-    [SerializeField] private Image portraitImage;
+    [Space] [SerializeField] private Image portraitImage;
     [SerializeField] private Image ticketImage;
 
-    [Space]
-    [SerializeField] private TextMeshProUGUI personalInfoText;
+    [Space] [SerializeField] private TextMeshProUGUI personalInfoText;
     [SerializeField] private TextMeshProUGUI scanResultsText;
 
-    [Space]
-    [SerializeField] private Sprite validTicketSprite;
+    [Space] [SerializeField] private Sprite validTicketSprite;
     [SerializeField] private Sprite[] invalidTicketsSprites;
 
+    [Space] [SerializeField] AudioClip buttonClickSFX;
+    [SerializeField] AudioClip clearConsoleSFX;
+    [Space]
+    [SerializeField] AudioClip stampDownSFX;
+    
+    [Space]
+    [SerializeField, Self] private CanvasGroup contentGroup;
+    [SerializeField] AudioClip showPanelSFX;
+    [SerializeField] AudioClip hidePanelSFX;
+
+    
     private void Start()
     {
-        acceptButton.onClick.AddListener(() => GameManager.Instance.ProcessDecision(true));
-        rejectButton.onClick.AddListener(() => GameManager.Instance.ProcessDecision(false));
+        acceptButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance?.PlaySFX(stampDownSFX);
+            GameManager.Instance.ProcessDecision(true);
+        });
+        rejectButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance?.PlaySFX(stampDownSFX);
+            GameManager.Instance.ProcessDecision(false);
+        });
 
         nextGuestButton.onClick.AddListener(GameManager.Instance.OnNextGuestPressed);
     }
@@ -76,6 +93,7 @@ public class UserConsole : MonoBehaviour
 
         scanResultsText.text = results;
     }
+
     void UpdateTicketInfo(GuestProfile guestProfile)
     {
         if (guestProfile.hasValidTicket)
@@ -89,11 +107,9 @@ public class UserConsole : MonoBehaviour
         }
     }
 
-    public void UpdateStatsText(int day, int currentGuestIndex)
+    public void UpdateStatsText(int day, int currentGuestIndex, int totalGuests)
     {
-        //show text as 
-        //day 1
-        //2/5 guests
+        statsText.text = $"Day {day}\n{currentGuestIndex}/{totalGuests}";
     }
 
     public void ClearConsole()
@@ -102,8 +118,9 @@ public class UserConsole : MonoBehaviour
         personalInfoText.text = "";
         portraitImage.sprite = null;
         ticketImage.sprite = null;
+        AudioManager.Instance?.PlaySFX(clearConsoleSFX);
     }
-    
+
     public void ShowQueueEmptyState()
     {
         personalInfoText.text = "No more guests today.";
@@ -111,15 +128,22 @@ public class UserConsole : MonoBehaviour
         portraitImage.sprite = null;
         ticketImage.sprite = null;
         //nextGuestButton active so player can press to end day
+        AudioManager.Instance?.PlaySFX(clearConsoleSFX);
     }
-    
+
     public void Show()
     {
         gameObject.SetActive(true);
+        contentGroup.alpha = 0;
+        contentGroup.DOKill(); // kill any previous tween on this target
+        contentGroup.DOFade(1f, 0.8f).SetDelay(0.0f);
+        AudioManager.Instance?.PlaySFX(showPanelSFX);
     }
 
     public void Hide()
     {
-        gameObject.SetActive(false);
+        contentGroup.DOKill(); // kill any previous tween on this target
+        contentGroup.DOFade(0f, 0.1f).SetDelay(0.0f).OnComplete(() => gameObject.SetActive(false));
+        AudioManager.Instance?.PlaySFX(hidePanelSFX);
     }
 }

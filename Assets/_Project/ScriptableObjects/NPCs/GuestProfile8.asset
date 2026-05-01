@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile8
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Sarah J
+    age: 34
     portrait: {fileID: 794838186090432735, guid: 16860e919be91aa4d9b28d37f7a98565, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Corporate team building event
   scanResult:
     sick: 1
-    lowCortisol: 1
-    highDopamine: 0
+    lowCortisol: 0
+    highDopamine: 1
   isFunKiller: 1
-  hasValidTicket: 0
+  hasValidTicket: 1

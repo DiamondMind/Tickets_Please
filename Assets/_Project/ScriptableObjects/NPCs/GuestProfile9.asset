@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile9
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Tommy Williams
+    age: 12
     portrait: {fileID: 2062635320437878736, guid: 42d19552624ff894bbe7ada5525c06a9, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Birthday celebration with family
   scanResult:
-    sick: 1
+    sick: 0
     lowCortisol: 1
-    highDopamine: 0
-  isFunKiller: 1
-  hasValidTicket: 0
+    highDopamine: 1
+  isFunKiller: 0
+  hasValidTicket: 1

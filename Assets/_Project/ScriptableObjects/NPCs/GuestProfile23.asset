@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile23
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Megan
+    age: 23
     portrait: {fileID: -4730927498822736314, guid: df17ddadae42d3d42b9c3c9befd6dcde, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Love and peace baby <3
   scanResult:
-    sick: 1
+    sick: 0
     lowCortisol: 1
-    highDopamine: 0
-  isFunKiller: 1
-  hasValidTicket: 0
+    highDopamine: 1
+  isFunKiller: 0
+  hasValidTicket: 1

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GuestProfile22
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Riri
+    age: 20
     portrait: {fileID: -258720767569812337, guid: 79215082db7d2c542a6094b1cc59de6b, type: 3}
     reasonForVisit: To destroy haha haha
   scanResult:

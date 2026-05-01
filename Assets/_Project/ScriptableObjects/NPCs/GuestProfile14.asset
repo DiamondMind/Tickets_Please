@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile14
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Amy
+    age: 16
     portrait: {fileID: -4814845757396815184, guid: d97941fc831aedb42b13b703e4d46978, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Hang out
   scanResult:
-    sick: 1
+    sick: 0
     lowCortisol: 1
-    highDopamine: 0
-  isFunKiller: 1
-  hasValidTicket: 0
+    highDopamine: 1
+  isFunKiller: 0
+  hasValidTicket: 1

@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile24
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Thomas T.
+    age: 23
     portrait: {fileID: -2815734357657206531, guid: f5ae0bb947b594e4992c7edce24527b7, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Can't tell you, where the kids at?!
   scanResult:
-    sick: 1
-    lowCortisol: 1
-    highDopamine: 0
+    sick: 0
+    lowCortisol: 0
+    highDopamine: 1
   isFunKiller: 1
   hasValidTicket: 0

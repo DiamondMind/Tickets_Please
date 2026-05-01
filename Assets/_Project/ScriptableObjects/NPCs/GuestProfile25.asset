@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile25
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Kim
+    age: 20
     portrait: {fileID: -4852094582147000638, guid: 887308042dd533d40a9d87db5f7d96a2, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Came to meet family
   scanResult:
-    sick: 1
+    sick: 0
     lowCortisol: 1
-    highDopamine: 0
-  isFunKiller: 1
-  hasValidTicket: 0
+    highDopamine: 1
+  isFunKiller: 0
+  hasValidTicket: 1

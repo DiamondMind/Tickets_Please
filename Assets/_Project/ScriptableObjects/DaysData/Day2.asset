@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7172a222b3191ff4fb53d76b25e14346, type: 3}
   m_Name: Day2
   m_EditorClassIdentifier: Assembly-CSharp::DayRuleSet
-  dayNumber: 0
+  dayNumber: 2
   guestQueue:
-  - {fileID: 11400000, guid: 8dc9b9690431ed541b83af4f5b8e172e, type: 2}
-  - {fileID: 11400000, guid: 2fb832094af742948b0d54d65b2a4bfb, type: 2}
-  - {fileID: 11400000, guid: c3a76af0e82408d43ab77f40c33f92a3, type: 2}
-  - {fileID: 11400000, guid: ab6cf63bab3c1b84684fd3d055040860, type: 2}
-  - {fileID: 11400000, guid: a5f8892b3776e404d964755009140184, type: 2}
+  - {fileID: 11400000, guid: 4887979733c85b64eb78f2e37187af30, type: 2}
+  - {fileID: 11400000, guid: 39c5ef9792619764b9534c8e767cc202, type: 2}
+  - {fileID: 11400000, guid: 3e28912a53f223d4eb1da0e89ede9dbe, type: 2}
+  - {fileID: 11400000, guid: fe1fe4d915eda3148916caddb879f238, type: 2}
+  - {fileID: 11400000, guid: 152b07c749f95c04092d1cf3e63835eb, type: 2}
+  - {fileID: 11400000, guid: 708a8c7348e83b54982942c52156c56f, type: 2}
+  - {fileID: 11400000, guid: df538d335d0e53d4ca1609aa84e6a6e5, type: 2}
+  - {fileID: 11400000, guid: 78f33e7a084a2b04196cfc903ff1109f, type: 2}
   minAge: 5
   maxAge: 25
   maxMistakesAllowed: 2
+  dailyBriefing: Fun Killers are adapting.  Fake smiles.\nForged tickets.\nHidden
+    intentions.  Do not trust appearances.  Inspect deeper.\nMake no mistakes.

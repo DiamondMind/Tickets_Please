@@ -12,13 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7172a222b3191ff4fb53d76b25e14346, type: 3}
   m_Name: Day1
   m_EditorClassIdentifier: Assembly-CSharp::DayRuleSet
-  dayNumber: 0
+  dayNumber: 1
   guestQueue:
-  - {fileID: 11400000, guid: 8dc9b9690431ed541b83af4f5b8e172e, type: 2}
-  - {fileID: 11400000, guid: 2fb832094af742948b0d54d65b2a4bfb, type: 2}
-  - {fileID: 11400000, guid: c3a76af0e82408d43ab77f40c33f92a3, type: 2}
-  - {fileID: 11400000, guid: ab6cf63bab3c1b84684fd3d055040860, type: 2}
-  - {fileID: 11400000, guid: a5f8892b3776e404d964755009140184, type: 2}
+  - {fileID: 11400000, guid: 409cf25ca843f1e46aecff8debf0874e, type: 2}
+  - {fileID: 11400000, guid: d5e7285c67028144b907e6f0db13ad33, type: 2}
+  - {fileID: 11400000, guid: a9f0218c2ed31fd479a035f6ee37552a, type: 2}
+  - {fileID: 11400000, guid: 0c3b1252300e4e640a17e7e4484123c2, type: 2}
+  - {fileID: 11400000, guid: 4f6100e07dbea334bbf176685b1b5017, type: 2}
+  - {fileID: 11400000, guid: 1167f1c840d0d224abfe79ffccf41279, type: 2}
+  - {fileID: 11400000, guid: 80d059d4658a46f429760a01a5921fda, type: 2}
   minAge: 5
   maxAge: 25
   maxMistakesAllowed: 2
+  dailyBriefing: 'Great work, Gatekeeper.  New threats are emerging.  Guests must
+    now also have: Low cortisol. High dopamine.  Every rule matters.  Stay sharp.'

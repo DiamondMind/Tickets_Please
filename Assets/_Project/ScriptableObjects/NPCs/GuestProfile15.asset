@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GuestProfile15
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
-    age: 55
+    name: Detective Miller
+    age: 41
     portrait: {fileID: -2606918867217634888, guid: 3fdd06def38db49458801fa4c0fb0978, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Investigating complaints
   scanResult:
     sick: 1
     lowCortisol: 1

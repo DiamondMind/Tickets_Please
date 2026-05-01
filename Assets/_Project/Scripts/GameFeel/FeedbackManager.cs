@@ -1,23 +1,25 @@
 using DG.Tweening;
+using KBCore.Refs;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FeedbackManager : MonoBehaviour
 {
-   public static FeedbackManager Instance;
+    public static FeedbackManager Instance;
 
-    [Header("Stamp")]
-    [SerializeField] private Image stampImage;
+    [Header("Stamp")] [SerializeField] private Image stampImage;
     [SerializeField] private Sprite approvedStamp;
     [SerializeField] private Sprite deniedStamp;
 
-    [Header("Screen Flash")]
-    [SerializeField] private Image flashOverlay; // fullscreen transparent image
+    [Header("Screen Flash")] [SerializeField]
+    private Image flashOverlay; // fullscreen transparent image
 
-    [Header("Audio")]
-    [SerializeField] private AudioClip approveSound;
+    [Header("Audio")] [SerializeField] private AudioClip approveSound;
     [SerializeField] private AudioClip denySound;
     [SerializeField] private AudioClip wrongSound; // buzzer for mistakes
+
+    [Header("VFX")] [SerializeField, Self] CinemachineImpulseSource shakeSource;
 
     private void Awake()
     {
@@ -34,7 +36,7 @@ public class FeedbackManager : MonoBehaviour
     public void PlayCorrect(bool wasApproved)
     {
         stampImage.sprite = wasApproved ? approvedStamp : deniedStamp;
-        AudioManager.Instance?.PlaySFX(approveSound);
+        AudioManager.Instance?.PlaySFX(approveSound, 0.35f);
         DoStampAnimation();
         DoFlash(new Color(0f, 1f, 0f, 0.25f)); // green
     }
@@ -42,7 +44,7 @@ public class FeedbackManager : MonoBehaviour
     public void PlayWrong(bool wasApproved)
     {
         stampImage.sprite = wasApproved ? approvedStamp : deniedStamp;
-        AudioManager.Instance?.PlaySFX(wrongSound);
+        AudioManager.Instance?.PlaySFX(wrongSound, 0.35f);
         DoStampAnimation();
         DoFlash(new Color(1f, 0f, 0f, 0.35f)); // red
     }
@@ -59,6 +61,7 @@ public class FeedbackManager : MonoBehaviour
         seq.AppendInterval(0.6f);
         seq.Append(stampImage.DOFade(0f, 0.2f));
         seq.OnComplete(() => stampImage.gameObject.SetActive(false));
+        shakeSource.GenerateImpulse();
     }
 
     private void DoFlash(Color flashColor)

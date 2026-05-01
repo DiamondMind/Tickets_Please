@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GuestProfile10
   m_EditorClassIdentifier: Assembly-CSharp::GuestProfile
   personalInfo:
-    name: Voldermort
+    name: Dr. Emily Foster
     age: 55
     portrait: {fileID: -3316179237714911493, guid: cf30e98ac9b911e45ae88abb0856acbe, type: 3}
-    reasonForVisit: To destroy haha haha
+    reasonForVisit: Research on guest behavior
   scanResult:
-    sick: 1
-    lowCortisol: 1
+    sick: 0
+    lowCortisol: 0
     highDopamine: 0
   isFunKiller: 1
-  hasValidTicket: 0
+  hasValidTicket: 1
