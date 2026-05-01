@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void PlaySound(AudioClip clip)
+    public void PlaySFX(AudioClip clip)
     {
         if (clip != null)
         {

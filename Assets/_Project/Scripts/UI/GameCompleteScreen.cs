@@ -1,0 +1,36 @@
+using DG.Tweening;
+using TMPro;
+using UnityEngine;
+
+public class GameCompleteScreen : MonoBehaviour
+{
+    [SerializeField] private TextMeshProUGUI totalScoreText;
+    [SerializeField] private TextMeshProUGUI funKillersText;
+    [SerializeField] private TextMeshProUGUI rankText;
+    [SerializeField] private CanvasGroup contentGroup;
+    [SerializeField] private UnityEngine.UI.Button mainMenuBtn;
+
+    private void Start()
+    {
+        int totalScore = PlayerPrefs.GetInt("TotalScore", 0);
+        int funKillersCaught = PlayerPrefs.GetInt("FunKillersCaught", 0);
+
+        totalScoreText.text = $"Total Score\n{totalScore}";
+        funKillersText.text = $"Fun Killers Stopped\n{funKillersCaught}";
+        rankText.text = GetRank(totalScore);
+
+        // Animate in
+        contentGroup.alpha = 0;
+        contentGroup.DOFade(1f, 0.8f).SetDelay(0.3f);
+
+        mainMenuBtn.onClick.AddListener(() => LevelLoader.LoadLevel(0));
+    }
+
+    private string GetRank(int score)
+    {
+        if (score >= 2500) return "rank: GUARDIAN OF FUN 🏆";
+        if (score >= 1800) return "rank: SOLID GATEKEEPER ✅";
+        if (score >= 1000) return "rank: NEEDS IMPROVEMENT 😬";
+        return "rank: THE FUN KILLERS WON 💀";
+    }
+}

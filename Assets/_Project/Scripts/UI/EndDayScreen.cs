@@ -12,7 +12,6 @@ public class EndDayScreen : MonoBehaviour
     {
         retryBtn.onClick.AddListener(() => GameManager.Instance.OnRetryPressed());
         proceedBtn.onClick.AddListener(() => GameManager.Instance.OnProceedPressed());
-        Hide();
     }
 
     public void UpdateResultsUI(int score, int mistakes, int funKillersCaught)

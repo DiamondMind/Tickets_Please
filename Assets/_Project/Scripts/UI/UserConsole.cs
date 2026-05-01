@@ -101,5 +101,25 @@ public class UserConsole : MonoBehaviour
         scanResultsText.text = "";
         personalInfoText.text = "";
         portraitImage.sprite = null;
+        ticketImage.sprite = null;
+    }
+    
+    public void ShowQueueEmptyState()
+    {
+        personalInfoText.text = "No more guests today.";
+        scanResultsText.text = "";
+        portraitImage.sprite = null;
+        ticketImage.sprite = null;
+        //nextGuestButton active so player can press to end day
+    }
+    
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 }

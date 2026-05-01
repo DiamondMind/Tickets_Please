@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void ShowBriefing()
     {
-        userConsole.gameObject.SetActive(false);
+        userConsole.Hide();
         endDayScreen.Hide();
         briefingScreen.UpdateBriefingText(CurrentDay.dailyBriefing);
         briefingScreen.Show();
@@ -78,14 +78,17 @@ public class GameManager : MonoBehaviour
         {
             score += 100;
             if (!playerApproved && guest.isFunKiller) funKillersCaught++;
+            FeedbackManager.Instance?.PlayCorrect(playerApproved);
         }
         else
         {
             mistakes++;
             if (playerApproved && guest.isFunKiller) funKillersMissed++;
+            FeedbackManager.Instance?.PlayWrong(playerApproved);
         }
 
         // ShowNextGuest();
+        userConsole.ClearConsole(); // Clear the console immediately after processing the decision
     }
 
     private bool IsGuestAllowed(GuestProfile guest)
@@ -97,8 +100,11 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    private bool isDayOver = false;
+
     public void StartDay()
     {
+        isDayOver = false;
         mistakes = 0;
         score = 0;
         funKillersCaught = 0;
@@ -113,8 +119,10 @@ public class GameManager : MonoBehaviour
     {
         if (currentIndex >= queue.Length)
         {
-            // all guests processed  so end day
-            EndDay();
+            isDayOver = true;
+            // disable next button, show "end of queue" message
+            userConsole.EnableConsoleButtons(false);
+            userConsole.ShowQueueEmptyState();
             return;
         }
 
@@ -128,7 +136,8 @@ public class GameManager : MonoBehaviour
         totalScore += score;
         totalFunKillersCaught += funKillersCaught;
 
-        userConsole.gameObject.SetActive(false);
+        userConsole.Hide();
+
         endDayScreen.UpdateResultsUI(score, mistakes, funKillersCaught);
         endDayScreen.Show(IsLastDay);
     }
@@ -142,7 +151,7 @@ public class GameManager : MonoBehaviour
     public void OnRetryPressed()
     {
         endDayScreen.Hide();
-        userConsole.gameObject.SetActive(true);
+        userConsole.Show();
         StartDay();
     }
 
@@ -164,12 +173,18 @@ public class GameManager : MonoBehaviour
     public void OnStartDayPressed()
     {
         briefingScreen.Hide();
-        userConsole.gameObject.SetActive(true);
+        userConsole.Show();
         StartDay();
     }
 
     public void OnNextGuestPressed()
     {
+        if (isDayOver)
+        {
+            EndDay();
+            return;
+        }
+
         ShowNextGuest();
     }
 }
