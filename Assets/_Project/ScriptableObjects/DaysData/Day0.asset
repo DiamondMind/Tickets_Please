@@ -23,5 +23,5 @@ MonoBehaviour:
   maxAge: 25
   maxMistakesAllowed: 2
   dailyBriefing: 'Welcome to your first day\nas Gatekeeper.  Protect Fun Park\nand
-    keep the joy alive.  ENTRY RULES: Golden Ticket only. Under 25 only. No sickness
+    keep the joy alive. \n\n ENTRY RULES: Golden Ticket only. Under 25 only. No sickness
     allowed.  Inspect carefully.\nProtect the fun.'

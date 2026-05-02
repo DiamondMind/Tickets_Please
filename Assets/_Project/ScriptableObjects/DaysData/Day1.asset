@@ -24,5 +24,5 @@ MonoBehaviour:
   minAge: 5
   maxAge: 25
   maxMistakesAllowed: 2
-  dailyBriefing: 'Great work, Gatekeeper.  New threats are emerging.  Guests must
-    now also have: Low cortisol. High dopamine.  Every rule matters.  Stay sharp.'
+  dailyBriefing: 'Great work, Gatekeeper.  New threats are emerging. \n\n Guests
+    must now also have: Low cortisol. High dopamine.  Every rule matters.  Stay sharp.'

@@ -118,6 +118,8 @@ public class GameManager : MonoBehaviour
 
     private void ShowNextGuest()
     {
+        userConsole.UpdateStatsText(CurrentDay.dayNumber, currentIndex, CurrentDay.guestQueue.Length);
+
         if (currentIndex >= queue.Length)
         {
             isDayOver = true;
