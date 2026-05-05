@@ -10,11 +10,13 @@ public class UserConsole : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI statsText; //day, count of proccesed tickets
 
-    [Space] [SerializeField] private Button acceptButton;
-    [SerializeField] private Button rejectButton;
+    [Space]
+    [SerializeField] private DraggableUI acceptStamp;
+    [SerializeField] private DraggableUI rejectStamp;
     [SerializeField] private Button nextGuestButton;
 
     [Space] [SerializeField] private Image portraitImage;
+    [SerializeField] private Image portraitBg;
     [SerializeField] private Image ticketImage;
 
     [Space] [SerializeField] private TextMeshProUGUI personalInfoText;
@@ -27,7 +29,11 @@ public class UserConsole : MonoBehaviour
     [SerializeField] AudioClip clearConsoleSFX;
     [Space]
     [SerializeField] AudioClip stampDownSFX;
-    
+
+    [Space]
+    [SerializeField] private AudioClip validstampSFX;
+    [SerializeField] private AudioClip invalidStampSFX;
+
     [Space]
     [SerializeField, Self] private CanvasGroup contentGroup;
     [SerializeField] AudioClip showPanelSFX;
@@ -36,19 +42,40 @@ public class UserConsole : MonoBehaviour
     
     private void Start()
     {
-        acceptButton.onClick.AddListener(() =>
-        {
-            AudioManager.Instance?.PlaySFX(stampDownSFX);
-            GameManager.Instance.ProcessDecision(true);
-        });
-        rejectButton.onClick.AddListener(() =>
-        {
-            AudioManager.Instance?.PlaySFX(stampDownSFX);
-            GameManager.Instance.ProcessDecision(false);
-        });
+        acceptStamp.onValidDrop.AddListener(OnAccept);
+        rejectStamp.onValidDrop.AddListener(OnReject);
+        acceptStamp.onValidDrop.AddListener(ValidStamp);
+        rejectStamp.onValidDrop.AddListener(ValidStamp);
+        acceptStamp.onInvalidDrop.AddListener(InvalidStamp);
+        rejectStamp.onInvalidDrop.AddListener(InvalidStamp);
 
         nextGuestButton.onClick.AddListener(GameManager.Instance.OnNextGuestPressed);
     }
+
+    private void OnDestroy()
+    {
+        acceptStamp.onValidDrop.RemoveListener(OnAccept);
+        rejectStamp.onValidDrop.RemoveListener(OnReject);
+        acceptStamp.onValidDrop.RemoveListener(ValidStamp);
+        rejectStamp.onValidDrop.RemoveListener(ValidStamp);
+        acceptStamp.onInvalidDrop.RemoveListener(InvalidStamp);
+        rejectStamp.onInvalidDrop.RemoveListener(InvalidStamp);
+    }
+
+    private void OnAccept()
+    {
+        AudioManager.Instance?.PlaySFX(buttonClickSFX);
+        GameManager.Instance.ProcessDecision(true);
+    }
+
+    private void OnReject()
+    {
+        AudioManager.Instance?.PlaySFX(buttonClickSFX);
+        GameManager.Instance.ProcessDecision(false);
+    }
+
+    private void ValidStamp() => AudioManager.Instance?.PlaySFX(validstampSFX);
+    private void InvalidStamp() => AudioManager.Instance?.PlaySFX(invalidStampSFX);
 
     public void DisplayGuest(GuestProfile guest)
     {
@@ -62,28 +89,30 @@ public class UserConsole : MonoBehaviour
     {
         if (isAttending)
         {
-            acceptButton.interactable = true;
-            rejectButton.interactable = true;
+            acceptStamp.Interactable = true;
+            rejectStamp.Interactable = true;
             nextGuestButton.interactable = false;
         }
         else
         {
-            acceptButton.interactable = false;
-            rejectButton.interactable = false;
+            acceptStamp.Interactable = false;
+            rejectStamp.Interactable = false;
             nextGuestButton.interactable = true;
         }
     }
 
-    void UpdatePersonalInfo(GuestProfile guestProfile)
+    private void UpdatePersonalInfo(GuestProfile guestProfile)
     {
         var personalInfo = guestProfile.personalInfo;
         var text =
             $"name: {personalInfo.name} \n \nage: {personalInfo.age} \n \nreason for coming: {personalInfo.reasonForVisit}";
         personalInfoText.text = text;
+        portraitBg.enabled = true;
+        portraitImage.enabled = true;
         portraitImage.sprite = personalInfo.portrait;
     }
 
-    void UpdateScanResults(GuestProfile guestProfile)
+    private void UpdateScanResults(GuestProfile guestProfile)
     {
         var scanResult = guestProfile.scanResult;
         var results = "";
@@ -94,16 +123,18 @@ public class UserConsole : MonoBehaviour
         scanResultsText.text = results;
     }
 
-    void UpdateTicketInfo(GuestProfile guestProfile)
+    private void UpdateTicketInfo(GuestProfile guestProfile)
     {
         if (guestProfile.hasValidTicket)
         {
             ticketImage.sprite = validTicketSprite;
+            ticketImage.gameObject.SetActive(true);
         }
         else if (invalidTicketsSprites is { Length: > 0 })
         {
             var index = Random.Range(0, invalidTicketsSprites.Length);
             ticketImage.sprite = invalidTicketsSprites[index];
+            ticketImage.gameObject.SetActive(true);
         }
     }
 
@@ -117,8 +148,17 @@ public class UserConsole : MonoBehaviour
         scanResultsText.text = "";
         personalInfoText.text = "";
         portraitImage.sprite = null;
+        portraitImage.enabled = false;
+        portraitBg.enabled = false;
         ticketImage.sprite = null;
+        ticketImage.gameObject.SetActive(false);
         AudioManager.Instance?.PlaySFX(clearConsoleSFX);
+    }
+
+    public void ResetStamps()
+    {
+        acceptStamp.ResetPosition();
+        rejectStamp.ResetPosition();
     }
 
     public void ShowQueueEmptyState()
@@ -126,7 +166,10 @@ public class UserConsole : MonoBehaviour
         personalInfoText.text = "No more guests today.";
         scanResultsText.text = "";
         portraitImage.sprite = null;
+        portraitImage.enabled = false;
+        portraitBg.enabled = false;
         ticketImage.sprite = null;
+        ticketImage.gameObject.SetActive(false);
         //nextGuestButton active so player can press to end day
         AudioManager.Instance?.PlaySFX(clearConsoleSFX);
     }

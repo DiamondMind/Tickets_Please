@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
             AudioManager.Instance?.PlaySFX(wrongDecisionSFX);
         }
 
-        userConsole.ClearConsole(); // Clear the console immediately after processing the decision
+        //userConsole.ClearConsole(); // Clear the console immediately after processing the decision
     }
 
     private bool IsGuestAllowed(GuestProfile guest)
@@ -114,6 +114,16 @@ public class GameManager : MonoBehaviour
         queue = CurrentDay.guestQueue;
         currentIndex = 0;
         ShowNextGuest();
+    }
+
+    public void ClearUserConsole()
+    { 
+        userConsole.ClearConsole();
+    }
+
+    public void ResetStamps()
+    {
+        userConsole.ResetStamps();
     }
 
     private void ShowNextGuest()

@@ -60,7 +60,13 @@ public class FeedbackManager : MonoBehaviour
         seq.Join(stampImage.DOFade(1f, 0.1f));
         seq.AppendInterval(0.6f);
         seq.Append(stampImage.DOFade(0f, 0.2f));
-        seq.OnComplete(() => stampImage.gameObject.SetActive(false));
+        seq.OnComplete(() =>
+        { 
+            stampImage.gameObject.SetActive(false); 
+            GameManager.Instance.ClearUserConsole(); // Clear the console after the stamp animation finishes
+            GameManager.Instance.ResetStamps(); // Reset stamp positions after animation
+        });
+
         shakeSource.GenerateImpulse();
     }
 
