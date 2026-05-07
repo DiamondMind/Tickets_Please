@@ -22,6 +22,17 @@ public class UserConsole : MonoBehaviour
     [Space] [SerializeField] private TextMeshProUGUI personalInfoText;
     [SerializeField] private TextMeshProUGUI scanResultsText;
 
+    [Space]
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color warningColor = Color.yellow;
+    [SerializeField] private Color dangerColor = Color.red;
+
+    [Space]
+    [SerializeField] private RectTransform funNeedle;
+    [SerializeField] private float minAngle = -90f;
+    [SerializeField] private float maxAngle = 90f;
+
     [Space] [SerializeField] private Sprite validTicketSprite;
     [SerializeField] private Sprite[] invalidTicketsSprites;
 
@@ -189,4 +200,44 @@ public class UserConsole : MonoBehaviour
         contentGroup.DOFade(0f, 0.1f).SetDelay(0.0f).OnComplete(() => gameObject.SetActive(false));
         AudioManager.Instance?.PlaySFX(hidePanelSFX);
     }
+
+    public void UpdateTimer(float remainingTime)
+    {
+        remainingTime = Mathf.Max(0f, remainingTime);
+
+        int minutes = Mathf.FloorToInt(remainingTime / 60f);
+        int seconds = Mathf.FloorToInt(remainingTime % 60f);
+        int milliseconds = Mathf.FloorToInt((remainingTime * 100f) % 100f);
+
+        timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:00}";
+
+        // Color warning states
+        if (remainingTime <= 3f)
+        {
+            timerText.color = dangerColor;
+        }
+        else if (remainingTime <= 5f)
+        {
+            timerText.color = warningColor;
+        }
+        else
+        {
+            timerText.color = normalColor;
+        }
+    }
+
+    public void ResetTimerDisplay(float time)
+    {
+        UpdateTimer(time);
+    }
+
+    public void UpdateFunMeter(float normalizedValue)
+    {
+        normalizedValue = Mathf.Clamp01(normalizedValue);
+
+        float angle = Mathf.Lerp(minAngle, maxAngle, normalizedValue);
+
+        funNeedle.localRotation = Quaternion.Euler(0f, 0f, angle);
+    }
+
 }
