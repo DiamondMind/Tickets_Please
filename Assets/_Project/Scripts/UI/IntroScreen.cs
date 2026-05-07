@@ -18,6 +18,7 @@ public class IntroScreen : MonoBehaviour
     [SerializeField] private Button skipButton;
 
     [Header("Settings")] [SerializeField] private float typeSpeed = 0.04f;
+    [SerializeField] private int linesPerPage = 3;
     [SerializeField] private AudioClip typeSound;
 
     private string[] storyLines;
@@ -41,46 +42,25 @@ public class IntroScreen : MonoBehaviour
         storyLines = new string[]
         {
             $"Welcome, {username}.",
-
             "You are the Gatekeeper of Fun Park — where joy knows no borders.",
-
-            "Guests from all walks of life come here to laugh, play, and create unforgettable memories.",
-
-            "Fun Park was built on one core belief:",
-
+            "Guests arrive here to laugh, play, and create shared memories.",
             "\"Play should be safe, joyful, and open to all who protect it.\"",
-
-            "But some visitors threaten that joy.",
-
-            "Fun Killers, rule breakers, and unhealthy guests can ruin the experience for everyone.",
-
-            $"Your mission is clear, {username}:",
-
-            "Protect the gates.",
-
-            "Inspect every guest carefully before granting entry.",
-
-            "VALID ENTRY REQUIREMENTS:",
-
-            "- Guest must possess a GOLDEN ticket.",
+            "But not every path to play is the same.",
+            "Some conditions affect how safely and fairly guests can participate.",
+            "Poor decisions or unstable guests can disrupt the experience for everyone.",
+            $"Your mission {username} is to assess each guest before entry.",
+            "VALID ENTRY GUIDELINES:",
+            "- Guest must have a GOLDEN ticket.",
             "- Guest must be under 25 years old.",
             "- Guest must have LOW cortisol levels.",
             "- Guest must have HIGH dopamine levels.",
             "- Guest must NOT be sick.",
-
-            "If any requirement is broken — DENY ENTRY.",
-
-            "APPROVE only qualified guests.",
-
-            "REJECT Fun Killers and harmful visitors.",
-
-            "Too many mistakes will lower park happiness.",
-
+            "To decide, drag the to approve or to reject.",
+            "Place your stamp on the guest document to shape their access to play.",
+            "Incorrect judgments will reduce park harmony.",
             "Protect borderless fun.",
-
-            "Keep Fun Park joyful.",
-
-            "Good luck, Gatekeeper."
+            "Remember: every decision shapes what 'without borders' truly means.",
+            "Keep play flowing. Good luck, Gatekeeper."
         };
 
         nameInputCanvas.SetActive(false);
@@ -90,37 +70,52 @@ public class IntroScreen : MonoBehaviour
 
     private IEnumerator PlayStory()
     {
-        foreach (var line in storyLines)
+        for (int i = 0; i < storyLines.Length; i += linesPerPage)
         {
-            yield return StartCoroutine(TypeLine(line));
-            yield return new WaitForSeconds(1.2f); // pause between lines
+            if (skipRequested)
+                break;
 
-            if (skipRequested) break;
+            storyText.text = "";
+            isTyping = true;
+
+            int end = Mathf.Min(i + linesPerPage, storyLines.Length);
+
+            for (int j = i; j < end; j++)
+            {
+                yield return StartCoroutine(TypeLine(storyLines[j]));
+                storyText.text += "\n"; // spacing between lines inside page
+            }
+
+            isTyping = false;
+
+            yield return new WaitForSeconds(0.6f);
         }
 
-        // done, load next scene
         LevelLoader.LoadLevel(3);
     }
 
     private IEnumerator TypeLine(string line)
     {
-        storyText.text = "";
-        isTyping = true;
-
         foreach (char c in line)
         {
             if (skipRequested)
             {
-                storyText.text = line; // snap to full line
-                break;
+                storyText.text += line;
+                yield break;
             }
 
             storyText.text += c;
-            AudioManager.Instance?.PlaySFX(typeSound);
+
+            // Only play sound if character is NOT a space
+            if (c != ' ' && c != '\n' && c != '\t')
+            {
+                AudioManager.Instance?.PlaySFX(typeSound);
+            }
+
             yield return new WaitForSeconds(typeSpeed);
         }
 
-        isTyping = false;
+        storyText.text += "\n";
     }
 
     private void OnSkip()
